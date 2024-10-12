@@ -1,0 +1,9 @@
+fastapi
+uvicorn
+pandas
+numpy==1.26.4
+scikit-learn
+joblib
+contractions
+nltk
+imblearn
