@@ -21,6 +21,10 @@ nltk.download('wordnet')
 nltk.download('omw-1.4')
 
 
+# Load initial data from XLSX file
+df = pd.read_excel('../content/ODScat_345.xlsx')
+
+
 class TextPreprocessor(BaseEstimator, TransformerMixin):
 
     def fit(self, X, y=None):
@@ -84,6 +88,11 @@ class FeatureScaler(BaseEstimator, TransformerMixin):
 
 
 def train_model(X, y):
+
+    global df
+    df = pd.concat([df, pd.DataFrame({'Textos_espanol': X, 'sdg': y})])
+    X  = df['Textos_espanol']
+    y = df['sdg']
 
     # Define the pipeline
     pipeline = Pipeline([
