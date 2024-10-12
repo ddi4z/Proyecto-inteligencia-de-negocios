@@ -153,18 +153,8 @@ In this example, the response indicates the performance of the model on the retr
 
 #### Example
 
-Execute the following command to retrain the model using the `/retrain` endpoint:
+You can use the following script to automatically transform an Excel file into a JSON object and send it to the `/retrain` endpoint:
 
 ```bash
-curl -X 'POST' \
-  'http://localhost:8000/predict' \
-  -H 'accept: application/json' \
-  -H 'Content-Type: application/json' \
-  -d '{
-  "Textos_espanol": [
-    "Estas disposiciones toman básicamente dos formas: beneficios especiales para divorciados o regulaciones para compartir la pensión (o 'partir la pensión') después del divorcio."
-    "En Corea, se reduce el costo compartido de la atención, incluidos los productos farmacéuticos, para los pacientes con cáncer. En Bélgica, Finlandia, Islandia y Noruega, existen exenciones de pago para ciertos productos farmacéuticos para pacientes."
-  ],
-  "sdg": [5, 3]
-}'
+python backend/scripts/try_api.py content/ODScat_345.xlsx http://localhost:8000/
 ```

@@ -3,9 +3,15 @@ from pydantic import BaseModel
 import pandas as pd
 from joblib import load, dump
 import uvicorn
-from .train import train_model
+from train import train_model
 
 # Cargar el pipeline previamente entrenado
+def text_preprocessing_function(x):
+    return x
+def vectorization_function(x):
+    return x
+def scaling_function(x):
+    return x
 pipeline = load('pipeline.joblib')
 
 # Inicializar la aplicación FastAPI
