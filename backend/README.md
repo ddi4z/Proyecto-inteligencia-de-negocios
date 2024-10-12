@@ -11,12 +11,16 @@ Follow these steps to install and set up the project:
    git clone https://github.com/ddi4z/Proyecto-inteligencia-de-negocios.git
    cd Proyecto-inteligencia-de-negocios/backend
    ```
-2. Create a virtual environment and activate it:
+2. Install virtualenv if you do not have this Python tool
+   ```bash
+   pip install virtualenv
+   ```
+3. Create a virtual environment and activate it:
    ```bash
    python -m venv venv
    source venv/bin/activate  # On Windows use `venv\Scripts\activate`
    ```
-3. Install the dependencies listed in `requirements.txt`:
+4. Install the dependencies listed in `requirements.txt`:
    ```bash
    pip install -r requirements.txt
    ```
@@ -104,7 +108,7 @@ curl -X 'POST' \
 
     "La próxima década, por lo tanto, será en gran parte de crecimiento en la provisión y participación en la secundaria superior. Esto requerirá una mayor eficiencia en el despliegue de maestros y una mejor alineación de las ofertas de programas con el tamaño de la escuela. Una mayor participación en la escuela secundaria superior también requerirá una mayor atención a la relevancia de la educación para la vida, el trabajo y las perspectivas de aprendizaje de los estudiantes.",
 
-    "Los primeros aÃ±os del auge liderado por las exportaciones de Taiwan fueron impulsados ​​por la entrada de estas mujeres en las fÃ¡bricas de exportaciÃ³n. En la década de 1970, cuando Taiwán enfrentó escasez de mano de obra, un sistema de fábrica satélite patrocinado por el estado hizo que el trabajo industrial fuera más consistente con los roles femeninos tradicionales, lo que permitió aumentar la oferta laboral de esposas y madres (Hsiung 1996). Este tipo de flexibilidad estructural en relación con el trabajo de las mujeres y los roles familiares es una característica que persiste en los mercados laborales taiwaneses en la actualidad y encaja con las expectativas de que las mujeres contribuyan financieramente a sus familias (Yu 2009). Como consecuencia, los aumentos en la participación laboral femenina han sido grandes y sostenidos, pasando del 35,5 por ciento en 1970 al 44,5 por ciento en 1990 y al 50,2 por ciento en 2012.''7 En comparación con otras economías de Asia oriental, que suelen tener algunos de las brechas salariales de género más grandes del mundo, las mujeres en Taiwán experimentan una brecha salarial de género más cercana a la norma de los países liberales industrializados avanzados: la relación salarial de género para los ingresos mensuales promedio en la industria y los servicios fue de 81,2 en 2012. Consideremos si esta dinámica ha acercó a Taiwán al camino bajo/feminización de la responsabilidad o al camino alto/caso de igualdad de género."
+    "Los primeros aÃ±os del auge liderado por las exportaciones de Taiwan fueron impulsados por la entrada de estas mujeres en las fÃ¡bricas de exportaciÃ³n. En la década de 1970, cuando Taiwán enfrentó escasez de mano de obra, un sistema de fábrica satélite patrocinado por el estado hizo que el trabajo industrial fuera más consistente con los roles femeninos tradicionales, lo que permitió aumentar la oferta laboral de esposas y madres (Hsiung 1996). Este tipo de flexibilidad estructural en relación con el trabajo de las mujeres y los roles familiares es una característica que persiste en los mercados laborales taiwaneses en la actualidad y encaja con las expectativas de que las mujeres contribuyan financieramente a sus familias (Yu 2009). Como consecuencia, los aumentos en la participación laboral femenina han sido grandes y sostenidos, pasando del 35,5 por ciento en 1970 al 44,5 por ciento en 1990 y al 50,2 por ciento en 2012.''7 En comparación con otras economías de Asia oriental, que suelen tener algunos de las brechas salariales de género más grandes del mundo, las mujeres en Taiwán experimentan una brecha salarial de género más cercana a la norma de los países liberales industrializados avanzados: la relación salarial de género para los ingresos mensuales promedio en la industria y los servicios fue de 81,2 en 2012. Consideremos si esta dinámica ha acercó a Taiwán al camino bajo/feminización de la responsabilidad o al camino alto/caso de igualdad de género."
   ]
 }'
 ```
