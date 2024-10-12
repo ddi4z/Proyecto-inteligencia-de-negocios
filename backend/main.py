@@ -5,6 +5,7 @@ from joblib import load, dump
 import uvicorn
 from train import train_model
 import warnings
+from fastapi.middleware.cors import CORSMiddleware
 warnings.filterwarnings("ignore")
 
 # Cargar el pipeline previamente entrenado
@@ -13,6 +14,13 @@ pipeline = load('pipeline.joblib')
 # Inicializar la aplicación FastAPI
 app = FastAPI()
 
+app.add_middleware(
+    CORSMiddleware,
+    allow_origins=["*"],  
+    allow_credentials=True,
+    allow_methods=["*"],  
+    allow_headers=["*"],  
+)
 
 # Modelo para la solicitud de predicción
 class PredictionRequest(BaseModel):
