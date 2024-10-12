@@ -21,7 +21,7 @@ Make sure you have the following installed on your machine:
 
 2. Install the dependencies:
    ```bash
-   npm install
+   npm install --force
    ```
 
 ## Usage
