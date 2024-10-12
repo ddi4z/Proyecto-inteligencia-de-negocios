@@ -94,9 +94,9 @@ function PanelUsuario({ resultadoActual, clasificarOpinion, opinion, setOpinion 
     <div className="p-5 mx-auto w-full">
       <InputDeTexto clasificarOpinion={clasificarOpinion} opinion={opinion} setOpinion={setOpinion} />
       {resultadoActual && <h2 className="text-black"><b>Resultado obtenido:</b> ODS{resultadoActual.prediccion}</h2>}
-      {resultadoActual && <h2 className="text-black"><b>Probabilidad ODS 3:</b> {resultadoActual.probabilidad3}</h2>}
-      {resultadoActual && <h2 className="text-black"><b>Probabilidad ODS 4:</b> {resultadoActual.probabilidad4}</h2>}
-      {resultadoActual && <h2 className="text-black"><b>Probabilidad ODS 5:</b> {resultadoActual.probabilidad5}</h2>}
+      {resultadoActual && <h2 className="text-black"><b>Probabilidad ODS 3:</b> {100 * resultadoActual.probabilidad3}</h2>}
+      {resultadoActual && <h2 className="text-black"><b>Probabilidad ODS 4:</b> {100 * resultadoActual.probabilidad4}</h2>}
+      {resultadoActual && <h2 className="text-black"><b>Probabilidad ODS 5:</b> {100 * resultadoActual.probabilidad5}</h2>}
     </div>
   );
 }
@@ -148,7 +148,7 @@ function VisualizarPromedio({ promedios }: {promedios: promedioPorOds}) {
       {
         label: 'Promedio de probabilidad (%)',
         data: [100 * promedios.promedio3, 100 * promedios.promedio4, 100 * promedios.promedio5],
-        backgroundColor: '#FF6384',
+        backgroundColor: '#F8981D',
       }
     ],
   };
