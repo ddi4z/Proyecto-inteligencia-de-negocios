@@ -2,16 +2,16 @@
 
 This is the frontend for the machine learning model, implemented using Next js with TypeScript. It uses the RESTful API that serves predictions from a machine learning model, as well as a re-training endpoint to update the model.
 
-## Getting Started
 
-### Prerequisites
+
+## Prerequisites
 
 Make sure you have the following installed on your machine:
 
 - Node.js (version 14.x or higher)
 - npm (Node Package Manager)
 
-### Installation
+## Installation
 
 1. Clone the repository:
    ```bash
@@ -24,7 +24,7 @@ Make sure you have the following installed on your machine:
    npm install
    ```
 
-### Usage
+## Usage
 
 To start the application, run the following command:
 
@@ -38,7 +38,7 @@ This will start the Next.js development server, and you can access the applicati
 http://localhost:3000
 ```
 
-### Routes
+## Routes
 
 The application includes the following routes:
 
