@@ -8,8 +8,8 @@ This is the frontend for the machine learning model, implemented using Next js w
 
 Make sure you have the following installed on your machine:
 
-- Node.js (version 14.x or higher)
-- npm (Node Package Manager)
+- Node.js (version 14.x or higher): https://nodejs.org/en/
+
 
 ## Installation
 
