@@ -9,7 +9,7 @@ Follow these steps to install and set up the project:
 1. Clone the repository:
    ```bash
    git clone https://github.com/ddi4z/Proyecto-inteligencia-de-negocios.git
-   cd Proyecto-inteligencia-de-negocios
+   cd Proyecto-inteligencia-de-negocios/backend
    ```
 2. Create a virtual environment and activate it:
    ```bash
@@ -18,7 +18,7 @@ Follow these steps to install and set up the project:
    ```
 3. Install the dependencies listed in `requirements.txt`:
    ```bash
-   pip install -r backend/requirements.txt
+   pip install -r requirements.txt
    ```
 
 ## Usage
@@ -26,7 +26,7 @@ Follow these steps to install and set up the project:
 To start the FastAPI backend, run the following command:
 
 ```bash
-uvicorn backend.main:app --reload
+uvicorn main:app --reload
 ```
 
 The backend will be available at `http://localhost:8000`.

@@ -4,6 +4,8 @@ import pandas as pd
 from joblib import load, dump
 import uvicorn
 from train import train_model
+import warnings
+warnings.filterwarnings("ignore")
 
 # Cargar el pipeline previamente entrenado
 pipeline = load('pipeline.joblib')
