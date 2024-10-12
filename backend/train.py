@@ -91,6 +91,7 @@ def train_model(X, y):
 
     global df
     df = pd.concat([df, pd.DataFrame({'Textos_espanol': X, 'sdg': y})])
+    df.to_excel('../content/ODScat_345.xlsx', index=False)
     X  = df['Textos_espanol']
     y = df['sdg']
 
