@@ -99,11 +99,17 @@ curl -X 'POST' \
   -H 'Content-Type: application/json' \
   -d '{
   "Textos_espanol": [
-    "Estas disposiciones toman básicamente dos formas: beneficios especiales para divorciados o regulaciones para compartir la pensión (o 'partir la pensión') después del divorcio."
-    "En Corea, se reduce el costo compartido de la atención, incluidos los productos farmacéuticos, para los pacientes con cáncer. En Bélgica, Finlandia, Islandia y Noruega, existen exenciones de pago para ciertos productos farmacéuticos para pacientes."
+
+    "La OMS también estableció en 2000 la Red mundial de respuesta ante brotes y alertas (GOARN) con el objetivo de gestionar brotes y alertas de enfermedades a nivel internacional. Sin embargo, algunos han cuestionado si el GOARN actual pone demasiado énfasis en evitar que los brotes epidémicos se propaguen a los países desarrollados en lugar de prevenir dichos brotes en los países en desarrollo en primer lugar (Davies, 2008, Elbe, 2010). El aumento de la esperanza de vida explica poco del aumento de los costos de atención de la salud experimentado en décadas anteriores",
+
+    "La próxima década, por lo tanto, será en gran parte de crecimiento en la provisión y participación en la secundaria superior. Esto requerirá una mayor eficiencia en el despliegue de maestros y una mejor alineación de las ofertas de programas con el tamaño de la escuela. Una mayor participación en la escuela secundaria superior también requerirá una mayor atención a la relevancia de la educación para la vida, el trabajo y las perspectivas de aprendizaje de los estudiantes.",
+
+    "Los primeros aÃ±os del auge liderado por las exportaciones de Taiwan fueron impulsados ​​por la entrada de estas mujeres en las fÃ¡bricas de exportaciÃ³n. En la década de 1970, cuando Taiwán enfrentó escasez de mano de obra, un sistema de fábrica satélite patrocinado por el estado hizo que el trabajo industrial fuera más consistente con los roles femeninos tradicionales, lo que permitió aumentar la oferta laboral de esposas y madres (Hsiung 1996). Este tipo de flexibilidad estructural en relación con el trabajo de las mujeres y los roles familiares es una característica que persiste en los mercados laborales taiwaneses en la actualidad y encaja con las expectativas de que las mujeres contribuyan financieramente a sus familias (Yu 2009). Como consecuencia, los aumentos en la participación laboral femenina han sido grandes y sostenidos, pasando del 35,5 por ciento en 1970 al 44,5 por ciento en 1990 y al 50,2 por ciento en 2012.''7 En comparación con otras economías de Asia oriental, que suelen tener algunos de las brechas salariales de género más grandes del mundo, las mujeres en Taiwán experimentan una brecha salarial de género más cercana a la norma de los países liberales industrializados avanzados: la relación salarial de género para los ingresos mensuales promedio en la industria y los servicios fue de 81,2 en 2012. Consideremos si esta dinámica ha acercó a Taiwán al camino bajo/feminización de la responsabilidad o al camino alto/caso de igualdad de género."
   ]
 }'
 ```
+
+Which should predict the SDG categories: `[3, 4, 5]`.
 
 ### 2. POST `/retrain`
 
@@ -157,4 +163,15 @@ You can use the following script to automatically transform an Excel file into a
 
 ```bash
 python backend/scripts/try_api.py content/ODScat_345.xlsx http://localhost:8000/
+```
+
+Which should return metrics similar to the following:
+
+```json
+{
+  "accuracy": 0.9691358024691358,
+  "precision": 0.9689786312527277,
+  "recall": 0.9694981095292956,
+  "f1_score": 0.9692214959916104
+}
 ```

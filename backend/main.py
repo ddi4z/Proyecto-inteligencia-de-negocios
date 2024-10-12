@@ -6,30 +6,30 @@ import uvicorn
 from train import train_model
 
 # Cargar el pipeline previamente entrenado
-def text_preprocessing_function(x):
-    return x
-def vectorization_function(x):
-    return x
-def scaling_function(x):
-    return x
 pipeline = load('pipeline.joblib')
 
 # Inicializar la aplicación FastAPI
 app = FastAPI()
 
+
 # Modelo para la solicitud de predicción
 class PredictionRequest(BaseModel):
     Textos_espanol: list
+
 
 # Modelo para la solicitud de reentrenamiento
 class RetrainingRequest(BaseModel):
     Textos_espanol: list
     sdg: list
 
+
 # Endpoint 1: Predicción
 @app.post("/predict")
 async def predict(request: PredictionRequest):
+
+    # Extraer los datos de la solicitud
     textos = pd.Series(request.Textos_espanol).astype(str)
+
     # Usar el pipeline para hacer predicciones
     predicciones = pipeline.predict(textos)
     probabilidades = pipeline.predict_proba(textos)
@@ -37,9 +37,12 @@ async def predict(request: PredictionRequest):
     # Devolver las predicciones y probabilidades
     return {"predicciones": predicciones.tolist(), "probabilidades": probabilidades.tolist()}
 
+
 # Endpoint 2: Reentrenamiento del modelo
 @app.post("/retrain")
 async def retrain(request: RetrainingRequest):
+
+    # Extraer los datos de la solicitud
     textos = pd.Series(request.Textos_espanol).astype(str)
     etiquetas = pd.Series(request.sdg).astype(int)
     

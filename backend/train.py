@@ -7,7 +7,6 @@ from sklearn.preprocessing import StandardScaler
 from sklearn.feature_extraction.text import CountVectorizer
 from sklearn.ensemble import GradientBoostingClassifier
 from sklearn.metrics import precision_score, recall_score, f1_score, accuracy_score
-from imblearn.over_sampling import SMOTE
 import nltk
 from nltk import word_tokenize
 from nltk.corpus import stopwords
@@ -26,7 +25,7 @@ class TextPreprocessor(BaseEstimator, TransformerMixin):
     def fit(self, X, y=None):
         return self  # No fitting necessary for preprocessing
 
-    def transform(self, X, y=None):
+    def transform(self, X):
         return X.apply(self.process)
 
     def process(self, texto):
@@ -68,18 +67,18 @@ class TextVectorizer(BaseEstimator, TransformerMixin):
     def fit(self, X, y=None):
         return self.vectorizer.fit(X)
 
-    def transform(self, X, y=None):
-        return pd.DataFrame(self.vectorizer.transform(X).toarray(), columns=self.vectorizer.get_feature_names_out)
+    def transform(self, X):
+        return pd.DataFrame(self.vectorizer.transform(X).toarray(), columns=self.vectorizer.get_feature_names_out())
 
 
 class FeatureScaler(BaseEstimator, TransformerMixin):
     def __init__(self):
-        self.scaler = StandardScaler()
+        self.scaler = StandardScaler(with_mean=False)
 
     def fit(self, X, y=None):
         return self.scaler.fit(X)
 
-    def transform(self, X, y=None):
+    def transform(self, X):
         return pd.DataFrame(self.scaler.transform(X), columns=X.columns)
 
 
@@ -89,7 +88,6 @@ def train_model(X, y):
     pipeline = Pipeline([
         ('text_preprocessing', TextPreprocessor()),
         ('vectorization', TextVectorizer()),
-        ('smote', SMOTE()),
         ('scaling', FeatureScaler()),
         ('classification', GradientBoostingClassifier(n_estimators=300, max_depth=5, random_state=1234)) 
     ])
