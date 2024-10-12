@@ -1,11 +1,12 @@
 "use client";
 import { useState } from 'react';
-import { Pie } from 'react-chartjs-2';
-import { Chart as ChartJS, Title, Tooltip, Legend, ArcElement, CategoryScale, LinearScale } from 'chart.js';
-import { conteoPorOds, resultadoConsulta } from '../types/tipos';
+import { Bar, Pie } from 'react-chartjs-2';
+import { Chart as ChartJS, Title, Tooltip, Legend, ArcElement, CategoryScale, LinearScale, BarElement } from 'chart.js';
+import { conteoPorOds, promedioPorOds, resultadoConsulta } from '../types/tipos';
 import { consultarOpinion } from '../services/fetcher';
+import Spinner from '@/app/components/spinner';
 
-ChartJS.register(Title, Tooltip, Legend, ArcElement, CategoryScale, LinearScale);
+ChartJS.register(Title, Tooltip, Legend, BarElement, ArcElement, CategoryScale, LinearScale);
 
 
 interface resultado {
@@ -18,27 +19,40 @@ export default function ClasificarOpinion() {
   const [conteo, setConteo] = useState<conteoPorOds>({ conteo3: 0, conteo4: 0, conteo5: 0 });
   const [resultadoActual, setResultadoActual] = useState<resultado | null>(null);
   const [opinion, setOpinion] = useState<string>('');
+  const [cargando, setCargando] = useState(false);
+  const [opinionesProcesadas, setOpinionesProcesadas] = useState<number>(0);
+  const [promedios, setPromedios] = useState<promedioPorOds>({ promedio3: 0, promedio4: 0, promedio5: 0 });
 
   const clasificarOpinion = async () => {
     try {
+      setResultadoActual(null);
+      setCargando(true);
       const respuestaPeticion = await consultarOpinion(opinion);
       const resultado: resultado = convertirRespuesta(respuestaPeticion);
       setConteo((conteo) => actualizarConteo(resultado, conteo));
+      setPromedios((promedios) => actualizarPromedios(resultado, promedios, opinionesProcesadas));
+      setOpinionesProcesadas(opinionesProcesadas + 1);
       setResultadoActual(resultado);
+      setCargando(false);
     } catch (error) {
       console.error('Error al clasificar la opinión:', error);
+      setCargando(false);
     }
   };
   return (
     <div className="flex flex-col w-full">
       <div className="w-full h-[350px] bg-cover bg-center" style={{ backgroundImage: "url('opinion.png')" }}></div>
       <div className="grid md:grid-cols-2">
-        <PanelUsuario resultadoActual={resultadoActual} clasificarOpinion={clasificarOpinion} opinion={opinion} setOpinion={setOpinion} />
+        {!cargando && <PanelUsuario resultadoActual={resultadoActual} clasificarOpinion={clasificarOpinion} opinion={opinion} setOpinion={setOpinion} />}
         {resultadoActual && <VisualizacionTorta conteo={conteo} />}
       </div>
+      {resultadoActual && <VisualizarPromedio promedios={promedios} />}
+      {cargando && <Spinner mensajeDeCarga="Clasificando opinion" mensajeAuxiliar="Esto puede tardar unos segundos" />}
     </div>
   );
 }
+
+
 
 function convertirRespuesta( respuestaPeticion: resultadoConsulta ){
   const resultado: resultado = {
@@ -59,6 +73,13 @@ function actualizarConteo( resultado: resultado, conteo: conteoPorOds ){
     conteo.conteo5 += 1;
   }
   return conteo;
+}
+
+function actualizarPromedios( resultado: resultado, promedios: promedioPorOds, opinionesProcesadas: number ){
+  promedios.promedio3 = (promedios.promedio3 * opinionesProcesadas + resultado.probabilidad3) / (opinionesProcesadas + 1);
+  promedios.promedio4 = (promedios.promedio4 * opinionesProcesadas + resultado.probabilidad4) / (opinionesProcesadas + 1);
+  promedios.promedio5 = (promedios.promedio5 * opinionesProcesadas + resultado.probabilidad5) / (opinionesProcesadas + 1);
+  return promedios;
 }
 
 
@@ -110,10 +131,34 @@ function VisualizacionTorta({ conteo }: { conteo: conteoPorOds }) {
         borderWidth: 1,
       },
     ],
+    
   };
   return (
-    <div className="mx-auto p-5">
-      <Pie data={data} />
+    <div className="mx-auto md:p-5">
+      <Pie data={data}  />
+    </div>
+  );
+}
+
+
+function VisualizarPromedio({ promedios }: {promedios: promedioPorOds}) {
+  const data = {
+    labels: ['ODS 3', 'ODS 4', 'ODS 5'],
+    datasets: [
+      {
+        label: 'Promedio de probabilidad (%)',
+        data: [100 * promedios.promedio3, 100 * promedios.promedio4, 100 * promedios.promedio5],
+        backgroundColor: '#FF6384',
+      }
+    ],
+  };
+
+  return (
+    <div className='p-5'>
+      <h2 className='font-bold text-xl'>Promedio de probabilidad por ODS</h2>
+      <div className='h-96 flex items-center justify-center border-2 rounded border-orange-300 p-6'>
+        <Bar data={data} options={{responsive: true}}/>
+      </div>
     </div>
   );
 }

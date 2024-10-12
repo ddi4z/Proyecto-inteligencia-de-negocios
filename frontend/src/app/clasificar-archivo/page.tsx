@@ -3,7 +3,7 @@ import { useState } from 'react';
 import * as XLSX from 'xlsx';
 import Image from 'next/image';
 import { Bar, Pie } from 'react-chartjs-2';
-import { conteoPorOds, resultadoConsulta } from '@/app/types/tipos';
+import { conteoPorOds, promedioPorOds, resultadoConsulta } from '@/app/types/tipos';
 import { Chart as ChartJS, Title, Tooltip, Legend, ArcElement, CategoryScale, LinearScale, BarElement } from 'chart.js';
 import { consultarOpiniones } from '../services/fetcher';
 import Spinner from '../components/spinner';
@@ -131,8 +131,9 @@ function VisualizarPromedio({ probabilidades }: { probabilidades: number[][] }) 
   );
 }
 
+
 function promedioProbabilidades(probabilidades: number[][]) {
-  const promedios = { promedio3: 0, promedio4: 0, promedio5: 0 };
+  const promedios:promedioPorOds = { promedio3: 0, promedio4: 0, promedio5: 0 };
   probabilidades.forEach((probabilidad) => {
     promedios.promedio3 += probabilidad[0];
     promedios.promedio4 += probabilidad[1];
