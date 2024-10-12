@@ -11,3 +11,7 @@ Juan Sebastián Urrea López - 201914710
 ### Backend
 
 El backend de este proyecto se encuentra en la carpeta `backend`. Para ejecutarlo, siga los pasos descritos en el archivo `README.md` de la carpeta.
+
+### Frontend
+
+El frontend de este proyecto se encuentra en la carpeta `frontend`. Para ejecutarlo, siga los pasos descritos en el archivo `README.md` de la carpeta.
