@@ -3,6 +3,11 @@ export interface resultadoConsulta {
   probabilidades: number[][];
 }
 
+export interface promedioPorOds {
+  promedio3: number;
+  promedio4: number;
+  promedio5: number;
+}
 
 export interface resultadoEntrenamiento {
   accuracy: number;

@@ -114,7 +114,7 @@ function VisualizarPromedio({ probabilidades }: { probabilidades: number[][] }) 
       {
         label: 'Promedio de probabilidad (%)',
         data: [100 * promedios.promedio3, 100 * promedios.promedio4, 100 * promedios.promedio5],
-        backgroundColor: '#FF6384',
+        backgroundColor: '#F8981D',
       }
     ],
   };
