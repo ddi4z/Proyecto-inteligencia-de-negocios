@@ -36,6 +36,7 @@ function procesarArchivo(archivo: File): Promise<{ Textos_espanol: string[], sdg
           const textosEspanol = convertirArchivoAJSON(data);
           resolve(textosEspanol);
         } catch (error) {
+          alert(`Error procesando el archivo: ${error}`);
           reject(`Error procesando el archivo: ${error}`);
         }
       }
@@ -53,8 +54,12 @@ function convertirArchivoAJSON(data: any): { Textos_espanol: string[], sdg: numb
   const nombreHoja = libroXLSX.SheetNames[0];
   const hojaXLSX = libroXLSX.Sheets[nombreHoja];  
   const jsonDeHoja = XLSX.utils.sheet_to_json(hojaXLSX);
-  const textosEspanol = jsonDeHoja.map((row: any) => row["Textos_espanol"]);
-  const clasificacion = jsonDeHoja.map((row: any) => row["sdg"]);
+  const filasValidas = jsonDeHoja.filter((row: any) => row["Textos_espanol"] !== undefined && row["sdg"] !== undefined);
+  const textosEspanol = filasValidas.map((row: any) => row["Textos_espanol"]);
+  const clasificacion = filasValidas.map((row: any) => row["sdg"]);
+  if (textosEspanol.length === 0 || clasificacion.length === 0) {
+    throw new Error("No se encontraron textos y/o etiquetas en el archivo.");
+  }
   return { Textos_espanol: textosEspanol, sdg: clasificacion }
 }
 

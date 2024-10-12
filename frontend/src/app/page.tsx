@@ -76,7 +76,7 @@ function Resultados() {
 function Resultado({ imagen, alt, texto }: { imagen: string; alt: string; texto: string }) {
   return (
     <div className=" shadow-lg rounded-lg text-center">
-    <Image src={imagen} alt={alt} width={200} height={150} objectFit="cover" className="w-full h-64"/>
+    <Image src={imagen} alt={alt} width={200} height={150} className="w-full h-64"/>
       <p className="font-bold text-xl text-[#f2921d]">
         {texto}
       </p>
