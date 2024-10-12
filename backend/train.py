@@ -105,7 +105,21 @@ def train_model(X, y):
         'accuracy': accuracy_score(Y_validation, y_pred_validation),
         'recall': recall_score(Y_validation, y_pred_validation, average='macro'),
         'precision': precision_score(Y_validation, y_pred_validation, average='macro'),
-        'f1': f1_score(Y_validation, y_pred_validation, average='macro')
+        'f1': f1_score(Y_validation, y_pred_validation, average='macro'),
+        'words': [{
+            ('Sanitario', 50 ),
+            ('Salud', 30) ,
+            ('Pacientes', 20) ,
+            ('Regiones', 25) ,
+            ('Asistencia', 18) ,
+            ('Tasa', 15) ,
+            ('Signos', 28) ,
+            ('Ejercicio', 35) ,
+            ('Ayudar', 22) ,
+            ('Proveedores', 24) ,
+            ('Identificar', 27) ,
+            ('Doctores', 23) ,
+        }]
     }
 
     return pipeline, metrics
