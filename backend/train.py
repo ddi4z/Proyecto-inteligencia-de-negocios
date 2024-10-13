@@ -13,6 +13,7 @@ from nltk.corpus import stopwords
 from nltk.stem import WordNetLemmatizer, SnowballStemmer
 import contractions
 import unicodedata
+from collections import Counter
 
 nltk.download('stopwords')
 nltk.download('punkt')
@@ -87,6 +88,32 @@ class FeatureScaler(BaseEstimator, TransformerMixin):
         return pd.DataFrame(self.scaler.transform(X), columns=X.columns)
 
 
+def normalizar_palabra(palabra):
+    # Normaliza los caracteres para eliminar diacríticos (acentos, tildes)
+    nfkd_form = unicodedata.normalize('NFKD', palabra)
+    palabra_sin_diacriticos = ''.join([c for c in nfkd_form if not unicodedata.combining(c)])
+
+    # Elimina cualquier carácter no alfabético (puntuación, números, etc.)
+    palabra_limpia = re.sub(r'[^a-zA-Z]', '', palabra_sin_diacriticos)
+
+    return palabra_limpia.lower()  # Convertir a minúsculas
+
+def get_most_frequent_words(text_series, n):
+    # Tokenizar y normalizar cada palabra en los textos
+    all_words = []
+    for text in text_series:
+        for word in text.split():
+            all_words.append(normalizar_palabra(word))  # Normalizar palabra
+
+    # Contar las palabras más comunes
+    word_counts = Counter(all_words)
+    
+    # Seleccionar las n palabras más frecuentes
+    most_common = word_counts.most_common(n)
+    
+    return most_common
+
+
 def train_model(X, y):
 
     global df
@@ -111,32 +138,22 @@ def train_model(X, y):
 
     # Evaluate the model
     y_pred_validation = pipeline.predict(X_validation)
+
+    valid_sdg_values = [3, 4, 5]
+    words = []
+    
+    for sdg_value in valid_sdg_values:
+        # Filtrar textos para el valor de sdg actual
+        sdg_texts = df[df['sdg'] == sdg_value]['Textos_espanol']
+        most_frequent = get_most_frequent_words(sdg_texts, n=10)  # n puede ser ajustado
+        words.append(most_frequent)
+
     metrics = {
         'accuracy': accuracy_score(Y_validation, y_pred_validation),
         'recall': recall_score(Y_validation, y_pred_validation, average='macro'),
         'precision': precision_score(Y_validation, y_pred_validation, average='macro'),
         'f1': f1_score(Y_validation, y_pred_validation, average='macro'),
-        'words': [
-            [
-                ('Sanitario', 50 ),
-                ('Salud', 30) ,
-                ('Pacientes', 20) 
-            ], 
-            [
-
-                ('Regiones', 25) ,
-                ('Asistencia', 18) ,
-                ('Tasa', 15) ,
-                ('Signos', 28) 
-            ],
-            [
-                ('Ejercicio', 35) ,
-                ('Ayudar', 22) ,
-                ('Proveedores', 24) ,
-                ('Identificar', 27) ,
-                ('Doctores', 23)
-            ]
-        ]
+        'words': words
     }
 
     return pipeline, metrics
