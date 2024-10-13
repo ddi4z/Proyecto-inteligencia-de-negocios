@@ -133,7 +133,7 @@ function PalabrasMasComunes({resultadoConsulta}: {resultadoConsulta: resultadoEn
   const palabrasODS5 = resultadoConsulta.words[2].map((palabra) => ({text: palabra[0], value: palabra[1]}))
   return (
     <div className='p-5'>
-      <h2 className="font-bold text-xl text-black">Palabras mas relevantes</h2>
+      <h2 className="font-bold text-xl text-black">Palabras más relevantes</h2>
       <div className="grid lg:grid-cols-3 md:grid-cols-2 border-2 rounded border-orange-300  ">
         <PalabrasPorODS palabras={palabrasODS3} numeroOds={3} />
         <PalabrasPorODS palabras={palabrasODS4} numeroOds={4} />

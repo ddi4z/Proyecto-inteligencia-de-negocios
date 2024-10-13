@@ -103,7 +103,8 @@ def get_most_frequent_words(text_series, n):
     all_words = []
     for text in text_series:
         for word in text.split():
-            all_words.append(normalizar_palabra(word))  # Normalizar palabra
+            if word not in set(stopwords.words('spanish')):
+                all_words.append(normalizar_palabra(word))  # Normalizar palabra
 
     # Contar las palabras más comunes
     word_counts = Counter(all_words)
